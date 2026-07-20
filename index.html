@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#155e3f">
+  <meta name="application-name" content="Dashboard Etos ID Palu">
+
   <title>Dashboard Etos ID Palu</title>
 
-  <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w128">
+  <link rel="icon" type="image/png" sizes="128x128" href="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w128">
   <link rel="shortcut icon" type="image/png" href="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w128">
   <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w256">
 
   <style>
+    :root {
+      color-scheme: light;
+      --etos-green: #155e3f;
+      --etos-bg: #f4f7f6;
+      --etos-text: #17352a;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -21,122 +30,113 @@
       height: 100%;
       margin: 0;
       overflow: hidden;
-      background: #f4f7f6;
+      background: var(--etos-bg);
       font-family: Arial, Helvetica, sans-serif;
     }
 
     #app-frame {
+      display: block;
       width: 100%;
       height: 100%;
       border: 0;
-      display: block;
-      background: #f4f7f6;
+      background: var(--etos-bg);
     }
 
-    #loading-screen {
+    #loading-screen,
+    #fallback-screen {
       position: fixed;
       inset: 0;
-      z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f4f7f6;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 20px;
+      background: var(--etos-bg);
     }
 
-    #loading-screen.hidden {
+    #loading-screen {
+      z-index: 9999;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #loading-screen.is-hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .loader-card {
-      min-width: 220px;
-      padding: 28px 30px;
-      text-align: center;
-      background: #ffffff;
-      border: 1px solid #e5ebe8;
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(21, 94, 63, 0.12);
+    #fallback-screen {
+      z-index: 9998;
+      display: none;
     }
 
-    .loader-logo {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 16px;
+    #fallback-screen.is-visible {
+      display: flex;
+    }
+
+    .panel {
+      width: min(100%, 430px);
+      padding: 30px;
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid #e4ece8;
+      border-radius: 24px;
+      box-shadow: 0 18px 48px rgba(21, 94, 63, 0.13);
+    }
+
+    .logo {
+      display: block;
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 17px;
       object-fit: contain;
       border-radius: 16px;
     }
 
     .spinner {
-      width: 34px;
-      height: 34px;
-      margin: 0 auto 14px;
+      width: 36px;
+      height: 36px;
+      margin: 0 auto 15px;
       border: 4px solid #dce9e3;
-      border-top-color: #155e3f;
+      border-top-color: var(--etos-green);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
 
-    .loader-title {
+    h1,
+    h2 {
       margin: 0;
-      color: #17352a;
-      font-size: 16px;
-      font-weight: 700;
+      color: var(--etos-text);
     }
 
-    .loader-text {
-      margin: 7px 0 0;
-      color: #6b7c75;
-      font-size: 12px;
+    h1 {
+      font-size: 18px;
     }
 
-    #fallback {
-      position: fixed;
-      inset: 0;
-      z-index: 9998;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: #f4f7f6;
-    }
-
-    #fallback.show {
-      display: flex;
-    }
-
-    .fallback-card {
-      max-width: 440px;
-      padding: 30px;
-      text-align: center;
-      background: #ffffff;
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(15, 45, 30, 0.12);
-    }
-
-    .fallback-card h2 {
-      margin: 0 0 10px;
-      color: #17352a;
+    h2 {
       font-size: 21px;
     }
 
-    .fallback-card p {
-      margin: 0 0 20px;
-      color: #64748b;
-      font-size: 14px;
+    p {
+      margin: 9px 0 0;
+      color: #65766f;
+      font-size: 13px;
       line-height: 1.6;
     }
 
-    .fallback-card a {
+    .open-button {
       display: inline-block;
-      padding: 11px 20px;
+      margin-top: 21px;
+      padding: 12px 22px;
       color: #ffffff;
       font-size: 14px;
       font-weight: 700;
       text-decoration: none;
-      background: #155e3f;
+      background: var(--etos-green);
       border-radius: 999px;
+    }
+
+    .open-button:hover {
+      filter: brightness(1.08);
     }
 
     @keyframes spin {
@@ -148,56 +148,81 @@
 </head>
 
 <body>
-  <div id="loading-screen">
-    <div class="loader-card">
+  <div id="loading-screen" role="status" aria-live="polite">
+    <div class="panel">
       <img
-        class="loader-logo"
+        class="logo"
         src="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w256"
         alt="Logo Etos"
         onerror="this.style.display='none'"
       >
-      <div class="spinner"></div>
-      <p class="loader-title">Dashboard Etos ID Palu</p>
-      <p class="loader-text">Memuat aplikasi...</p>
+      <div class="spinner" aria-hidden="true"></div>
+      <h1>Dashboard Etos ID Palu</h1>
+      <p>Memuat aplikasi...</p>
     </div>
   </div>
 
   <iframe
     id="app-frame"
-    src="https://script.google.com/macros/s/AKfycbyHwPN_qNbrSuxgUOBdFztE1B94UrUKg4SvybRvFKJBp_9RFWcbefbTczWF4-cXP2c/exec"
+    src="https://script.google.com/macros/s/AKfycby2KnGRMyFCJxL-FaKy4v5z085Bmz1-S1RedUt2jdsX3pcyRsyTuYR1n7P1yjHM90U/exec"
     title="Dashboard Etos ID Palu"
-    allow="clipboard-read; clipboard-write; camera; microphone"
+    allow="camera; microphone; clipboard-read; clipboard-write"
     referrerpolicy="strict-origin-when-cross-origin"
   ></iframe>
 
-  <div id="fallback">
-    <div class="fallback-card">
-      <h2>Aplikasi belum dapat dimuat</h2>
-      <p>Silakan buka Dashboard Etos ID Palu langsung melalui tombol berikut.</p>
-      <a href="https://script.google.com/macros/s/AKfycbyHwPN_qNbrSuxgUOBdFztE1B94UrUKg4SvybRvFKJBp_9RFWcbefbTczWF4-cXP2c/exec" target="_blank" rel="noopener noreferrer">
+  <div id="fallback-screen">
+    <div class="panel">
+      <img
+        class="logo"
+        src="https://drive.google.com/thumbnail?id=10YeZKGS5-CDLf_Ztrbn3te0Oa4ZfdOK0&sz=w256"
+        alt="Logo Etos"
+        onerror="this.style.display='none'"
+      >
+      <h2>Aplikasi belum berhasil dimuat</h2>
+      <p>
+        Koneksi mungkin lambat atau halaman tidak mengizinkan tampilan di dalam
+        pembungkus. Gunakan tombol berikut untuk membuka dashboard secara langsung.
+      </p>
+      <a
+        class="open-button"
+        href="https://script.google.com/macros/s/AKfycby2KnGRMyFCJxL-FaKy4v5z085Bmz1-S1RedUt2jdsX3pcyRsyTuYR1n7P1yjHM90U/exec"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Buka Dashboard
       </a>
     </div>
   </div>
 
+  <noscript>
+    <div style="padding:20px;font-family:Arial,sans-serif">
+      JavaScript harus diaktifkan.
+      <a href="https://script.google.com/macros/s/AKfycby2KnGRMyFCJxL-FaKy4v5z085Bmz1-S1RedUt2jdsX3pcyRsyTuYR1n7P1yjHM90U/exec">Buka Dashboard Etos</a>
+    </div>
+  </noscript>
+
   <script>
     (function () {
-      const frame = document.getElementById('app-frame');
-      const loading = document.getElementById('loading-screen');
-      const fallback = document.getElementById('fallback');
-      let loaded = false;
+      "use strict";
 
-      frame.addEventListener('load', function () {
-        loaded = true;
-        setTimeout(function () {
-          loading.classList.add('hidden');
-        }, 300);
+      const frame = document.getElementById("app-frame");
+      const loadingScreen = document.getElementById("loading-screen");
+      const fallbackScreen = document.getElementById("fallback-screen");
+      let frameLoaded = false;
+
+      function hideLoading() {
+        loadingScreen.classList.add("is-hidden");
+      }
+
+      frame.addEventListener("load", function () {
+        frameLoaded = true;
+        window.setTimeout(hideLoading, 250);
       });
 
-      setTimeout(function () {
-        if (!loaded) {
-          loading.classList.add('hidden');
-          fallback.classList.add('show');
+      window.setTimeout(function () {
+        if (!frameLoaded) {
+          hideLoading();
+          fallbackScreen.classList.add("is-visible");
         }
       }, 15000);
     })();
