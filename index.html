@@ -59,7 +59,7 @@
   <iframe
     id="etos-app"
     name="etos-app"
-    src="https://script.google.com/macros/s/AKfycby2KnGRMyFCJxL-FaKy4v5z085Bmz1-S1RedUt2jdsX3pcyRsyTuYR1n7P1yjHM90U/exec"
+    src="about:blank"
     title="Dashboard Etos ID Palu"
     frameborder="0"
     scrolling="yes"
@@ -67,5 +67,33 @@
     allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"
     allowfullscreen
   ></iframe>
+
+  <script>
+    (function () {
+      var appBaseUrl =
+        'https://script.google.com/macros/s/AKfycby2KnGRMyFCJxL-FaKy4v5z085Bmz1-S1RedUt2jdsX3pcyRsyTuYR1n7P1yjHM90U/exec';
+      var iframe = document.getElementById('etos-app');
+      var pathMatch = window.location.pathname.match(/^\/r\/([A-Za-z0-9]{6,16})\/?$/);
+      var legacyHashMatch = window.location.hash.match(/^#\/refleksi\/([A-Za-z0-9_-]+)$/);
+
+      if (pathMatch) {
+        document.title = 'Refleksi & Aksi Kajian — Etos ID Palu';
+        iframe.title = 'Refleksi & Aksi Kajian';
+        iframe.src = appBaseUrl +
+          '?page=refleksi-kajian&code=' + encodeURIComponent(pathMatch[1]);
+        return;
+      }
+
+      if (legacyHashMatch) {
+        document.title = 'Refleksi & Aksi Kajian — Etos ID Palu';
+        iframe.title = 'Refleksi & Aksi Kajian';
+        iframe.src = appBaseUrl +
+          '?page=refleksi-kajian&form=' + encodeURIComponent(legacyHashMatch[1]);
+        return;
+      }
+
+      iframe.src = appBaseUrl;
+    })();
+  </script>
 </body>
 </html>
