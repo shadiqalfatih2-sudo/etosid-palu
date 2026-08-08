@@ -1,0 +1,17 @@
+{
+  "name": "Dashboard Etos ID Palu",
+  "short_name": "Etos ID Palu",
+  "description": "Dashboard pembinaan dan pengembangan awardee Etos ID Wilayah Palu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#155e3f",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
