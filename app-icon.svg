@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#63df12"/>
+      <stop offset="1" stop-color="#37b91b"/>
+    </linearGradient>
+    <linearGradient id="d" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b7448"/>
+      <stop offset="1" stop-color="#004e36"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="210" fill="#fff"/>
+  <g transform="translate(235 105) scale(.58)">
+    <circle cx="204" cy="114" r="55" fill="url(#g)"/>
+    <path d="M163 243c51-45 104-54 154-27l93 111-88 119-83-138c-23-39-48-45-76-26z" fill="url(#d)"/>
+    <path d="M138 267c-27 94-25 171 8 222 18 28 48 31 72 2l246-325c32-43 77-67 128-66-39 17-69 43-92 79L239 535c-39 54-86 55-122 12-55-66-47-182-17-280z" fill="url(#g)"/>
+    <path d="M424 520c52-1 100-44 141-129 47-98 69-198 49-278 63 65 64 191 18 312-49 128-121 196-208 199z" fill="url(#d)"/>
+    <path d="M463 559c52-10 94-60 128-147 40-102 53-205 25-281 70 57 83 181 45 305-40 132-106 207-198 223z" fill="url(#g)"/>
+  </g>
+  <text x="512" y="690" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="88" font-weight="700" fill="#075c3d">Dashboard</text>
+  <text x="512" y="790" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="800">
+    <tspan fill="#59d414">Etos</tspan><tspan fill="#075c3d"> ID Palu</tspan>
+  </text>
+  <path d="M82 890c229 61 614 48 860-53v78c-267 99-645 105-860 45z" fill="url(#g)"/>
+  <path d="M82 934c241 69 626 52 860-41v47c-270 102-655 108-860 47z" fill="url(#d)"/>
+</svg>
